@@ -1,0 +1,22 @@
+{
+  "name": "mean-basic",
+  "version": "1.0.0",
+  "description": "A very basic MEAN app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "connect-mongo": "*",
+    "cors": "^2.8.4",
+    "express": "*",
+    "express-session": "*",
+    "mongoose": "*",
+    "morgan": "*",
+    "passport": "*",
+    "passport-local": "*"
+  },
+  "author": "Gowtham Anbu",
+  "license": "ISC"
+}
