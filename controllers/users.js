@@ -14,7 +14,7 @@ exports.getUsers =  (request, response) => {
 exports.createUser = (request, response, next) => {
 var userData = request.body;
 
-userData.userName = userData.userName.toLowerCase();
+userData.email = userData.email.toLowerCase();
 userData.salt = encrypt.createsalt();
 userData.hashed_pwd = encrypt.hashpwd(userData.salt, userData.password); 
 user.create(userData, (err, user) => {

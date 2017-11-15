@@ -7,8 +7,8 @@ var user= mongoose.model('user');
 module.exports = function(){
 //local strategy method for passport
 passport.use(new LocalStrategy(
-(username, password, done) => {
-    user.findOne({userName:username}).exec((err, user) => {
+(email, password, done) => {
+    user.findOne({email:email}).exec((err, user) => {
         // if(err){return done(err);}   //refer the docs 
         if(user && user.authenticate(password)){
             return done(null, user);
