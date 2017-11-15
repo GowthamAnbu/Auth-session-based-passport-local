@@ -1,22 +1,27 @@
-var mongoose = require('mongoose');
+/*
+rootfile mongoose.js
+server side validation is not implemented yet
+*/
+var mongoose = require('mongoose'),
+encrypt = require('../utilities/encryption');
 
 var Schema= mongoose.Schema;
-
 var userSchema = new Schema({
-firstName: {type:String,required:true},
-lastName: {type:String,required:true},
-dob:{type:String, required:true}
+    firstName: {type:String,required:true},
+    lastName: {type:String,required:true},
+    dob:{type:String, required:true}
 });
-
-var user= module.exports = mongoose.model('User',userSchema);
-
-module.exports.createDefaultUsers = function () {
-user.find({}).exec(function(err, collection){
-    if(collection.length === 0){
-    var salt,hash;
-    user.create({firstName:'Merrick',lastName:'Baliton',dob:'1995-12-31'});
-    user.create({firstName:'Cole',lastName:'Blake',dob:'1995-11-04'});
-    user.create({firstName:'Jack',lastName:'Rickson',dob:'1995-10-05'});
-    }
-})
-};
+/*
+schema methods allows the object to call this methods to do easy functions
+code no:26 is an example of getting the password and salt of particular
+object
+*/
+userSchema.methods={
+authenticate: function(passwordToMatch){
+    return encrypt.hashpwd(this.salt, passwordToMatch) === this.hashed_pwd;
+},
+hasRole: function(role){
+    return this.role.indexOf('admin') > -1;
+}
+}
+var user= module.exports = mongoose.model('user',userSchema);
