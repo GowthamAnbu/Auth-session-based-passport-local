@@ -1,14 +1,14 @@
 var passport = require('passport');
 
-exports.authenticate = function(request, response, next){
+exports.authenticate = (request, response, next) => {
 		request.body.username = request.body.username.toLowerCase(); 
-		var auth = passport.authenticate('local',function(err, user){
+		var auth = passport.authenticate('local',(err, user) => {
 			if(err){return next(err);}
 			if(!user){response.send({success:false});}
 			/*passport primarily adds the login to the request object 
 			but in the custom login developer has to set the send object to response object
 			*/
-			request.logIn(user, function(err){
+			request.logIn(user, (err) => {
 				if(err){return next(err);}
 				response.send({success:true, user:user});
 			})
@@ -20,7 +20,7 @@ request.isAuthenticated() is a default function in passport
 which returns true if the user is logged in 
 else false
 */
-exports.requiresApiLogin = function(request, response, next){
+exports.requiresApiLogin = (request, response, next) => {
 	if(!request.isAuthenticated()){
 		response.status(403);
 		response.end();

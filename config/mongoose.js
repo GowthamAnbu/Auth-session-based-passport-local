@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-    module.exports = function (config) {
+    module.exports = (config) => {
         mongoose.connect(config.db, { useMongoClient: true });
         var db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error...'));

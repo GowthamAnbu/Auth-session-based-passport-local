@@ -18,10 +18,10 @@ code no:26 is an example of getting the password and salt of particular
 object
 */
 userSchema.methods={
-authenticate: function(passwordToMatch){
+authenticate: (passwordToMatch) => {
     return encrypt.hashpwd(this.salt, passwordToMatch) === this.hashed_pwd;
 },
-hasRole: function(role){
+hasRole: (role) => {
     return this.role.indexOf('admin') > -1;
 }
 }

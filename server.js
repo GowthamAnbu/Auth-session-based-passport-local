@@ -10,7 +10,7 @@ require('./config/mongoose')(config);
 require('./config/routes')(app);
 require('./config/passport')();
 
-app.listen(config.port, function (err) {
+app.listen(config.port,(err) => {
     if (err) throw err;
     console.log("listening to the port :" + config.port);
 });

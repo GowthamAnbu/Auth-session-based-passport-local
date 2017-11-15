@@ -1,12 +1,12 @@
 var crypto = require('crypto');
 
 //basic salt creation for hashing
-exports.createsalt = function() {
+exports.createsalt = () => {
 	return crypto.randomBytes(128).toString('base64');
 }
 
 //basic algorithm for hashing
-exports.hashpwd = function(salt, pwd) {
+exports.hashpwd = (salt, pwd) => {
 	var hmac = crypto.createHmac('sha1', salt);
 	hmac.setEncoding('hex');
 	hmac.write(pwd);

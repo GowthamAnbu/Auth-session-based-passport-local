@@ -6,7 +6,7 @@ var express = require('express'),
     passport = require('passport'),
     MongoStore = require('connect-mongo')(session);
 
-module.exports = function (app, config) {
+module.exports = (app, config) => {
 
     app.use(logger('dev'));
 
