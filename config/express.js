@@ -13,7 +13,7 @@ module.exports = function (app, config) {
 	//cookie parser
     app.use(cookieParser());
     
-    //setting up the bodyparser properties
+    // //setting up the bodyparser properties
     app.use(bodyparser.urlencoded({ extended: true }));
     app.use(bodyparser.json());
 
