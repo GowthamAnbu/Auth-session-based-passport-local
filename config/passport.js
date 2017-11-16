@@ -1,29 +1,12 @@
 var mongoose = require('mongoose'),
 passport = require('passport'),
 encrypt = require('../utilities/encryption'),
-User = require('../models/user'),
+// User = require('../models/user'),//no need to import anything refer var User below
 LocalStrategy = require('passport-local').Strategy;
 
+var User = mongoose.model("user");
 module.exports = function(){
 //local strategy method for passport
-passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-},
-(username, password, done) => {
-    User.findOne({username:username,password:password}).exec((err, user) => {
-        console.log("checking" + user);
-        if(err){return done(err);}   //refer the docs 
-        if(user && user.authenticate(password)){
-            console.log(user);
-            return done(null, user);
-        }else{
-            return done(null, false,{message:"username or password is incorrect"});
-        }
-    })
-}
-));
-
 passport.use('local-signup', new LocalStrategy({
     usernameField : 'email',
     passwordField : 'password',
@@ -70,6 +53,27 @@ function(request, email, password, done) {
     });
   });
 }));
+
+passport.use('local-login',new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback : true
+},
+(req, email, password, done) => {
+    process.nextTick(function(){
+    User.findOne({email:email}).exec((err, user) => {
+        if(err){return done(err);}   //refer the docs 
+        if(user && user.authenticate(password)){
+            // console.log(user);
+            return done(null, user);
+        }else{
+            return done(null, false,{message:"username or password is incorrect"});
+        }
+    })        
+});
+}
+));
+
 
 //Serialization for authentication
 passport.serializeUser((user, done) => {

@@ -3,9 +3,12 @@ var passport = require('passport');
 exports.authenticate = (request, response, next) => {
 		request.body.email = request.body.email.toLowerCase(); 
 		
-		var auth = passport.authenticate('local',(err, user) => {
+		var auth = passport.authenticate('local-login',(err, user) => {
 			if(err){return next(err);}
-			if(!user){response.send({success:false,message:"username or password is incorrect"});}
+			if(!user){
+				response.status(400);
+				response.send({message:"username or password is incorrect"});
+			}
 			/*passport primarily adds the login to the request object 
 			but in the custom login developer has to set the send object to response object
 			*/

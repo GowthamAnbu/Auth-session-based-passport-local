@@ -25,7 +25,8 @@ code no:26 is an example of getting the password and salt of particular
 object
 */
 userSchema.methods={
-authenticate: (passwordToMatch) => {
+authenticate: function(passwordToMatch){ /* do not change this to fat arrow because this reference will be closed if changed*/
+    // console.log(this.salt);
     return encrypt.hashpwd(this.salt, passwordToMatch) === this.password;
 },
 hasRole: (role) => {
@@ -33,4 +34,4 @@ hasRole: (role) => {
 }
 }
 var user= mongoose.model('user',userSchema);
-module.exports = user;
+// module.exports = user; //no need to export
