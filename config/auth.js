@@ -21,10 +21,14 @@ exports.register = (request, response, next) => {
 
 	var reg = passport.authenticate('local-signup',(err, user) =>{
 		if(err){return next(err);}
-		if(!user){response.send({succes:false, message:"user not created"});}
+		if(!user){
+			response.status(400);
+			response.send({message:"email already exists"});
+		}
 		request.logIn(user, (err) => {
 			if(err){return next(err);}
-			response.send({succes:true, message:"user created successfully"});
+			response.status(201);
+			response.send({message:"user created successfully"});
 		})
 	})
 	reg(request, response, next);
