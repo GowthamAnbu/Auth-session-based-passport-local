@@ -20,8 +20,8 @@ module.exports = (app, config) => {
     //passport session key , initalization, session
     app.use(session({
         secret: 'angular-initial-template',
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        saveUninitialized: false,
         store: new MongoStore({ url: config.db })
     }));
     
